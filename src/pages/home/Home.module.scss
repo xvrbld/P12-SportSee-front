@@ -1,0 +1,51 @@
+.container {
+    display: flex;
+
+    .main {
+        margin-left: 70px;
+
+        .userName {
+            margin-top: 60px;
+    
+            .lastName {
+                color: var(--primary);
+            }
+        }
+    
+        .greet {
+            margin-top: 30px;
+        }
+    
+        .stats {
+            display: flex;
+
+            @media screen and (max-width: 1340px) {
+                flex-direction: column;
+            }
+
+            .graphics {
+                display: flex;
+                flex-direction: column;
+
+                .thumbs {
+                    width: 800px;
+                    display: flex;
+                    justify-content: space-between;
+                    margin: auto;
+                    margin-left: 0;
+                }
+            }
+
+            .nutrients {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                @media screen and (max-width: 1340px) {
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                }
+            }
+        }
+    }
+}

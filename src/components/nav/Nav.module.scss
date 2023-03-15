@@ -1,0 +1,35 @@
+.nav {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 100px;
+    height: calc(100vh - 90px);
+    position: relative;
+
+    ul {
+        list-style: none;
+
+        svg {
+            background-color: white;
+            border-radius: 6px;
+            padding: 10px;
+            margin-left: -15px;
+            margin-top: 20px;
+        }
+    }
+
+    p {
+        color: white;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        position: absolute;
+        bottom: 59px;
+        left: 25px;
+        
+    }
+}
