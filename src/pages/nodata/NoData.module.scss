@@ -1,0 +1,14 @@
+.nodata {
+    display: flex;
+    justify-content: center;
+
+    a {
+        margin-left: 50px;
+        margin-top: 100px;
+        text-decoration: none;
+        color: white;
+        background-color: var(--primary);
+        border-radius: 20px;
+        padding: 10px;
+    }
+}

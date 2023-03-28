@@ -1,17 +1,23 @@
 import { React, useState, useEffect } from "react";
 import styles from "./Home.module.scss";
 import Nav from "components/nav/Nav";
-import Weight from "components/weight/Weight";
-import Goals from "components/goals/Goals";
-import RadarGraph from "components/radar/Radar";
-import Kpi from "components/kpi/Kpi";
+import Activity from "components/activity/Activity";
+import Session from "components/session/Session";
+import Performance from "components/performance/Performance";
+import Score from "components/score/Score";
 import Nutrient from "components/nutrient/Nutrient";
-import { getUser, getActivity } from "mock/mock";
+import { getUser, getActivity, getSession, getPerformance } from "api/Api";
+import { useParams } from "react-router-dom";
+//import { getUser, getActivity, getSession, getPerformance } from "mock/mock";
 
 function Home() {
   const [user, setUser] = useState({});
   const [activity, setActivity] = useState({});
-  const id=12; // A remplacer par l'ID dans l'URL
+  const [session, setSession] = useState({});
+  const [performance, setPerformance] = useState({});
+  const [score, setScore] = useState({});
+  const { id } = useParams();
+
   useEffect(() => {
     async function data() {
       const userInfo = await getUser(id)
@@ -19,10 +25,20 @@ function Home() {
 
       const userActivity = await getActivity(id)
       setActivity(userActivity)
+
+      const userSession = await getSession(id)
+      setSession(userSession)
+
+      const userPerformance = await getPerformance(id)
+      setPerformance(userPerformance)
+
+      const todayScore = userInfo.todayScore;
+      setScore(todayScore);
     }
+    
     data();
   },[id])
-  if (!user || !user.userInfos) {
+  if (!user || !user.userInfos || !activity.sessions || !session.sessions || !performance.kind) {
     return(<div>Erreur</div>)
   }
   return (
@@ -39,19 +55,19 @@ function Home() {
         <div className={styles.stats}>
           <div className={styles.graphics}>
             <div className={styles.weight}>
-              <Weight data={activity}/>
+              <Activity data={activity}/>
             </div>
             <div className={styles.thumbs}>
-              <Goals />
-              <RadarGraph />
-              <Kpi />
+              <Session data={session}/>
+              <Performance data={performance} />
+              <Score score={score} />
             </div>
           </div>
           <div className={styles.nutrients}>
             <Nutrient color="rgba(255, 0, 0, 0.07)" icon="IconCalorie" value={`${user.keyData.calorieCount}kCal`} label="Calories" />
-            <Nutrient color= "rgba(74, 184, 255, 0.1)" icon="IconProtein" value="155g" label="Proteines"/>
-            <Nutrient icon="IconCarb" value="290g" label="Glucides"/>
-            <Nutrient icon="IconLipide" value="50g" label="Lipides"/>
+            <Nutrient color= "rgba(74, 184, 255, 0.1)" icon="IconProtein" value={`${user.keyData.proteinCount}g`} label="Proteines"/>
+            <Nutrient color= "rgba(249, 206, 35, 0.1)" icon="IconCarb" value={`${user.keyData.carbohydrateCount}g`} label="Glucides"/>
+            <Nutrient color= "rgba(253, 81, 129, 0.1)" icon="IconLipide" value={`${user.keyData.lipidCount}g`} label="Lipides"/>
           </div>
         </div>
       </div>

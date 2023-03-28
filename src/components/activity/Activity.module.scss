@@ -6,7 +6,13 @@
     margin-left: 0;
     width: 800px;
 
-    .container__barKilo {
+    .tooltip {
         background-color: red;
+        color: white;
+        padding: 20px 10px;
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }

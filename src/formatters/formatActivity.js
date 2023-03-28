@@ -1,13 +1,13 @@
-export async function formateActivity(data) {
+export async function formatActivity(data) {
     const days = data.sessions;
-    const activityFormated = [];
+    const formattedActivity = [];
 
     days.forEach((day, index) => {
-        activityFormated.push({
+        formattedActivity.push({
             name:index+1,
             weight:day.kilogram,
             calorie:day.calories
         })
     })
-    return activityFormated
+    return formattedActivity
 }

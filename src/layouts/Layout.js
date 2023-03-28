@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import NoData from "pages/nodata/NoData";
 import Home from "pages/home/Home";
 import Header from "./header/Header";
 
@@ -10,7 +11,8 @@ function Layout() {
       <div className="container">
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<NoData />} />
+          <Route path="/:id" element={<Home />} />
         </Routes>
       </div>
     </div>

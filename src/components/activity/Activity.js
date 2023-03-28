@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from "react";
-import styles from "./Weight.module.scss";
-import { formateActivity } from "formatters/formateActivity";
+import PropTypes from "prop-types"; // import PropTypes
+import styles from "./Activity.module.scss";
+import { formatActivity } from "formatters/formatActivity";
 import {
   BarChart,
   Bar,
@@ -12,16 +13,27 @@ import {
   Tooltip,
 } from "recharts";
 
-function Weight({data}) {
-  const [activityData, setActivityData] = useState([])
+function Activity({ data }) {
+  const [activityData, setActivityData] = useState([]);
   useEffect(() => {
     async function formateData() {
-      const activityFormated = await formateActivity(data)
-      setActivityData(activityFormated)
+      const formattedActivity = await formatActivity(data);
+      setActivityData(formattedActivity);
     }
     formateData();
-  },[data])
-  
+  }, [data]);
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className={styles.tooltip}>
+          <p>{`${payload[0].value}kg`}</p>
+          <p>{`${payload[1].value}kCal`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <div className={styles.container}>
@@ -51,7 +63,7 @@ function Weight({data}) {
           <Tooltip
             wrapperStyle={{ outline: "none" }}
             cursor={{ fill: "gray", opacity: 0.3 }}
-            content={""}
+            content={<CustomTooltip />}
             offset={30}
             allowEscapeViewBox={{ x: true }}
             position={{ y: 0 }}
@@ -83,8 +95,8 @@ function Weight({data}) {
             barSize={8}
             radius={[10, 10, 0, 0]}
             yAxisId="right"
-            className={styles.container__barCalories}
-            name="Calories brûlées (kCal)"
+            className={styles.barCalories}
+            name={<span style={{ color: "black" }}>Calories brûlées (kCal)</span>}
             fill="#E60000"
           />
         </BarChart>
@@ -93,4 +105,14 @@ function Weight({data}) {
   );
 }
 
-export default Weight;
+/*Activity.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      weight: PropTypes.number.isRequired,
+      calorie: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+};*/
+
+export default Activity;

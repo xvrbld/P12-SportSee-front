@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types"; // import PropTypes
+
 import styles from "./Nutrient.module.scss";
 import IconCalorie from "components/icons/Calorie";
 import IconProtein from "components/icons/Protein";
@@ -28,5 +30,13 @@ function Nutrient({ icon, value, label, color }) {
     </div>
   );
 }
+
+// Define PropTypes
+/*Nutrient.propTypes = {
+  icon: PropTypes.oneOf(["IconCalorie", "IconProtein", "IconCarb", "IconLipide"]).isRequired,
+  value: PropTypes.number.isRequired,
+  label: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+};*/
 
 export default Nutrient;
