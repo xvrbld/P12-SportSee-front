@@ -8,6 +8,13 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+/**
+ * Composant qui affiche le score de l'utilisateur sous forme de graphique radial
+ * @param {Object} props - Les props du composant
+ * @param {number} props.score - Le score de l'utilisateur
+ * @returns {JSX.Element} - Composant Score
+ */
+
 function Score({ score }) {
   return (
     <div className={styles.container}>

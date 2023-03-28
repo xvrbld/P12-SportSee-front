@@ -10,6 +10,13 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+/**
+ * Composant qui affiche un graphique radar représentant les performances de l'utilisateur
+ * @param {Object} props - Les props du composant
+ * @param {Array} props.data - Les datas à afficher
+ * @return {JSX.Element} Composant Performance
+ */
+
 function Performance({ data }) {
   const [performanceData, setPerformanceData] = useState([]);
   useEffect(() => {

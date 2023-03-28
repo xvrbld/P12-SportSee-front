@@ -1,5 +1,5 @@
-import { React, useEffect, useState } from "react";
-import PropTypes from "prop-types"; // import PropTypes
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import styles from "./Activity.module.scss";
 import { formatActivity } from "formatters/formatActivity";
 import {
@@ -13,15 +13,35 @@ import {
   Tooltip,
 } from "recharts";
 
+/**
+ * Un graphique à barres qui affiche les datas de l'activité quotidienne
+ * @param {Object} props - Les props du composant
+ * @param {Object[]} props.data - Un tableau d'objets des data de l'activité
+ * @param {string} props.data[].name - Le nnuméro des jours d'activité
+ * @param {number} props.data[].weight - Le poids de l'activité
+ * @param {number} props.data[].calorie - Les calories brûlées de l'activité
+ * @returns {JSX.Element} - Le composant de l'activité quotidienne
+ */
+
 function Activity({ data }) {
   const [activityData, setActivityData] = useState([]);
+
   useEffect(() => {
-    async function formateData() {
+    async function formatData() {
       const formattedActivity = await formatActivity(data);
       setActivityData(formattedActivity);
     }
-    formateData();
+    formatData();
   }, [data]);
+
+  /**
+   * Une info-bulle pour le graphique à barres
+   * @param {Object} props - Les props du composant
+   * @param {boolean} props.active - L'info-bulle est active ou non
+   * @param {Object[]} props.payload - Un tableau d'objets des data pour l'info-bulle
+   * @param {number} props.payload[].value - La valeur affichée dans l'info-bulle
+   * @returns {JSX.Element} - Composant CustomTooltip
+   */
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
