@@ -10,12 +10,12 @@ import {
 function Score({ score }) {
   const data = [
     {
-      score: 100, // max score
-      fill: "white", // background color
+      score: 100,
+      fill: "white",
     },
     {
-      score: score * 100, // current user score
-      fill: "#E60000", // current score color
+      score: score * 100,
+      fill: "#E60000",
     },
   ];
 

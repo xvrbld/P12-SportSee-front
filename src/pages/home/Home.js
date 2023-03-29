@@ -15,31 +15,37 @@ function Home() {
   const [activity, setActivity] = useState({});
   const [session, setSession] = useState({});
   const [performance, setPerformance] = useState({});
-  const [score, setScore] = useState({});
+  const [score, setScore] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
     async function data() {
-      const userInfo = await getUser(id)
-      setUser(userInfo)
+      const userInfo = await getUser(id);
+      setUser(userInfo);
 
-      const userActivity = await getActivity(id)
-      setActivity(userActivity)
+      const userActivity = await getActivity(id);
+      setActivity(userActivity);
 
-      const userSession = await getSession(id)
-      setSession(userSession)
+      const userSession = await getSession(id);
+      setSession(userSession);
 
-      const userPerformance = await getPerformance(id)
-      setPerformance(userPerformance)
+      const userPerformance = await getPerformance(id);
+      setPerformance(userPerformance);
 
-      const todayScore = userInfo.todayScore;
-      setScore(todayScore);
+      const userScore = userInfo.todayScore;
+      setScore(userScore ? userScore : userInfo.score);
     }
-    
+
     data();
-  },[id])
-  if (!user || !user.userInfos || !activity.sessions || !session.sessions || !performance.kind) {
-    return(<div>Erreur</div>)
+  }, [id]);
+  if (
+    !user ||
+    !user.userInfos ||
+    !activity.sessions ||
+    !session.sessions ||
+    !performance.kind
+  ) {
+    return <div>Erreur</div>;
   }
   return (
     <div className={styles.container}>
@@ -55,19 +61,39 @@ function Home() {
         <div className={styles.stats}>
           <div className={styles.graphics}>
             <div className={styles.weight}>
-              <Activity data={activity}/>
+              <Activity data={activity} />
             </div>
             <div className={styles.thumbs}>
-              <Session data={session}/>
+              <Session data={session} />
               <Performance data={performance} />
               <Score score={score} />
             </div>
           </div>
           <div className={styles.nutrients}>
-            <Nutrient color="rgba(255, 0, 0, 0.07)" icon="IconCalorie" value={`${user.keyData.calorieCount}kCal`} label="Calories" />
-            <Nutrient color= "rgba(74, 184, 255, 0.1)" icon="IconProtein" value={`${user.keyData.proteinCount}g`} label="Proteines"/>
-            <Nutrient color= "rgba(249, 206, 35, 0.1)" icon="IconCarb" value={`${user.keyData.carbohydrateCount}g`} label="Glucides"/>
-            <Nutrient color= "rgba(253, 81, 129, 0.1)" icon="IconLipide" value={`${user.keyData.lipidCount}g`} label="Lipides"/>
+            <Nutrient
+              color="rgba(255, 0, 0, 0.07)"
+              icon="IconCalorie"
+              value={`${user.keyData.calorieCount}kCal`}
+              label="Calories"
+            />
+            <Nutrient
+              color="rgba(74, 184, 255, 0.1)"
+              icon="IconProtein"
+              value={`${user.keyData.proteinCount}g`}
+              label="Proteines"
+            />
+            <Nutrient
+              color="rgba(249, 206, 35, 0.1)"
+              icon="IconCarb"
+              value={`${user.keyData.carbohydrateCount}g`}
+              label="Glucides"
+            />
+            <Nutrient
+              color="rgba(253, 81, 129, 0.1)"
+              icon="IconLipide"
+              value={`${user.keyData.lipidCount}g`}
+              label="Lipides"
+            />
           </div>
         </div>
       </div>
