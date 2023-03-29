@@ -11,7 +11,7 @@ export async function formatPerformance(data) {
 
   data.data.forEach((d) => {
     formattedPerformance.push({
-      subject: translation[d.kind],
+      label: translation[d.kind],
       value: d.value,
     });
   });

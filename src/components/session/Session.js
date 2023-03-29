@@ -4,13 +4,6 @@ import styles from "./Session.module.scss";
 import { formatSession } from "formatters/formatSession";
 import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from "recharts";
 
-/**
- * Un composant à courbe qui affiche la durée des sessions de l'utilisateur pendant la semaine
- * @param {Object[]} props - Les props du composant
- * @param {SessionData[]} props.data - Un tableau avec les data contenant le nom des jours et le temps de chaque session
- * @return {JSX.Element} Composant Session
- */
-
 function Session({ data }) {
   const [sessionData, setSessionData] = useState([]);
   useEffect(() => {
@@ -20,14 +13,6 @@ function Session({ data }) {
     }
     formateData();
   }, [data]);
-
-  /**
-   * Une info-bulle pour le graphique à courbe
-   * @param {Object} props - Les props du composant
-   * @param {boolean} props.active - L'info-bulle est active ou non
-   * @param {Object[]} props.payload - Un tableau d'objets des data pour l'info-bulle
-   * @returns {JSX.Element} - Composant CustomTooltip
-   */
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -104,8 +89,11 @@ function Session({ data }) {
   );
 }
 
-/*Session.propTypes = {
-  data: PropTypes.array.isRequired,
-};*/
+Session.propTypes = {
+  data: PropTypes.shape({
+    userId: PropTypes.number.isRequired,
+    sessions: PropTypes.array.isRequired,
+  }).isRequired,
+};
 
 export default Session;

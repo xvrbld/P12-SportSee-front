@@ -10,13 +10,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-/**
- * Composant qui affiche un graphique radar représentant les performances de l'utilisateur
- * @param {Object} props - Les props du composant
- * @param {Array} props.data - Les datas à afficher
- * @return {JSX.Element} Composant Performance
- */
-
 function Performance({ data }) {
   const [performanceData, setPerformanceData] = useState([]);
   useEffect(() => {
@@ -30,37 +23,42 @@ function Performance({ data }) {
   return (
     <div className={styles.container}>
       <ResponsiveContainer>
-      <RadarChart
-        cx={130}
-        cy={130}
-        outerRadius={60}
-        data={performanceData}
-        fil="white"
-      >
-        <PolarGrid radialLines={false} />
-        <PolarAngleAxis
-          dataKey="subject"
-          stroke="white"
-          line-stroke="none"
-          tickLine={false}
-          dy={1}
-          dx={-2}
-          tick={{ fontSize: 12 }}
-        />
-        <Radar
-          dataKey="value"
-          stroke="#FF0101"
-          fill="#FF0101"
-          fillOpacity={0.6}
-        />
-      </RadarChart>
-    </ResponsiveContainer>
+        <RadarChart
+          cx={130}
+          cy={130}
+          outerRadius={60}
+          data={performanceData}
+          fill="white"
+        >
+          <PolarGrid radialLines={false} />
+          <PolarAngleAxis
+            dataKey="label"
+            stroke="white"
+            strokeWidth={0}
+            tickLine={false}
+            dy={1}
+            dx={-2}
+            tick={{ fontSize: 12 }}
+            radialLines={false}
+          />
+          <Radar
+            dataKey="value"
+            stroke="#FF0101"
+            fill="#FF0101"
+            fillOpacity={0.6}
+          />
+        </RadarChart>
+      </ResponsiveContainer>
     </div>
   );
 }
 
-/*Performance.propTypes = {
-  data: PropTypes.array.isRequired,
-};*/
+Performance.propTypes = {
+  data: PropTypes.shape({
+    userId: PropTypes.number.isRequired,
+    data: PropTypes.array.isRequired,
+    kind: PropTypes.object.isRequired,
+  }).isRequired,
+};
 
 export default Performance;

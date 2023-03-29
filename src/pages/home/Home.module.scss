@@ -18,6 +18,7 @@
     
         .stats {
             display: flex;
+            margin-top: 60px;
 
             @media screen and (max-width: 1340px) {
                 flex-direction: column;
@@ -44,6 +45,8 @@
                 @media screen and (max-width: 1340px) {
                     flex-direction: row;
                     flex-wrap: wrap;
+                    margin-top: 0;
+                    width: 800px;
                 }
             }
         }

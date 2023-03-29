@@ -13,19 +13,9 @@ import {
   Tooltip,
 } from "recharts";
 
-/**
- * Un graphique à barres qui affiche les datas de l'activité quotidienne
- * @param {Object} props - Les props du composant
- * @param {Object[]} props.data - Un tableau d'objets des data de l'activité
- * @param {string} props.data[].name - Le nnuméro des jours d'activité
- * @param {number} props.data[].weight - Le poids de l'activité
- * @param {number} props.data[].calorie - Les calories brûlées de l'activité
- * @returns {JSX.Element} - Le composant de l'activité quotidienne
- */
-
 function Activity({ data }) {
+  
   const [activityData, setActivityData] = useState([]);
-
   useEffect(() => {
     async function formatData() {
       const formattedActivity = await formatActivity(data);
@@ -33,15 +23,6 @@ function Activity({ data }) {
     }
     formatData();
   }, [data]);
-
-  /**
-   * Une info-bulle pour le graphique à barres
-   * @param {Object} props - Les props du composant
-   * @param {boolean} props.active - L'info-bulle est active ou non
-   * @param {Object[]} props.payload - Un tableau d'objets des data pour l'info-bulle
-   * @param {number} props.payload[].value - La valeur affichée dans l'info-bulle
-   * @returns {JSX.Element} - Composant CustomTooltip
-   */
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -116,7 +97,9 @@ function Activity({ data }) {
             radius={[10, 10, 0, 0]}
             yAxisId="right"
             className={styles.barCalories}
-            name={<span style={{ color: "black" }}>Calories brûlées (kCal)</span>}
+            name={
+              <span style={{ color: "black" }}>Calories brûlées (kCal)</span>
+            }
             fill="#E60000"
           />
         </BarChart>
@@ -125,14 +108,11 @@ function Activity({ data }) {
   );
 }
 
-/*Activity.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      weight: PropTypes.number.isRequired,
-      calorie: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-};*/
+Activity.propTypes = {
+  data: PropTypes.shape({
+    userId: PropTypes.number.isRequired,
+    sessions: PropTypes.array.isRequired,
+  }).isRequired,
+};
 
 export default Activity;

@@ -4,44 +4,40 @@ import styles from "./Score.module.scss";
 import {
   RadialBarChart,
   RadialBar,
-  PolarAngleAxis,
   ResponsiveContainer,
 } from "recharts";
 
-/**
- * Composant qui affiche le score de l'utilisateur sous forme de graphique radial
- * @param {Object} props - Les props du composant
- * @param {number} props.score - Le score de l'utilisateur
- * @returns {JSX.Element} - Composant Score
- */
-
 function Score({ score }) {
+  const data = [
+    {
+      score: 100, // max score
+      fill: "white", // background color
+    },
+    {
+      score: score * 100, // current user score
+      fill: "#E60000", // current score color
+    },
+  ];
+
   return (
     <div className={styles.container}>
       <ResponsiveContainer width="100%" height="100%">
         <RadialBarChart
-          innerRadius={75}
-          outerRadius={100}
-          barSize={8}
-          startAngle={-270}
-          endAngle={90}
-          data={[{ value: score / 100 }]}
-          margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+          innerRadius="80%"
+          barSize={10}
+          outerRadius="80%"
+          data={data}
+          startAngle={90}
+          endAngle={450}
         >
-          <PolarAngleAxis
-            type="number"
-            domain={[0, 1]}
-            angleAxisId={0}
-            tick={false}
-          />
           <RadialBar
-            dataKey="value"
-            fill="#FF0000"
-            background
-            cornerRadius={50}
-            startAngle={-270}
-            endAngle={(score / 100) * 180 - 270}
+            background={{ fill: "white" }}
+            cornerRadius={5}
+            max={100}
+            dataKey="score"
+            className={styles.container__bar}
           />
+
           <text
             x={50}
             y={25}
@@ -59,12 +55,13 @@ function Score({ score }) {
             textAnchor="middle"
             dominantBaseline="middle"
             className="score-label"
+            fontSize={28}
           >
             {`${score * 100}%`}
           </text>
           <text
-            x={130}
-            y={120}
+            x={128}
+            y={130}
             textAnchor="middle"
             dominantBaseline="middle"
             className="score-label"
@@ -72,8 +69,8 @@ function Score({ score }) {
             de votre
           </text>
           <text
-            x={130}
-            y={140}
+            x={128}
+            y={150}
             textAnchor="middle"
             dominantBaseline="middle"
             className="score-label"
