@@ -4,6 +4,35 @@ import styles from "./Session.module.scss";
 import { formatSession } from "formatters/formatSession";
 import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from "recharts";
 
+/**
+ * A custom tooltip component for the LineChart.
+ * @module CustomTooltip
+ * @param {Object} props - The component props.
+ * @param {boolean} props.active - Whether the tooltip is active.
+ * @param {Object[]} props.payload - An array of tooltip payload objects.
+ * @returns {JSX.Element|null} - The JSX markup for the tooltip component or null if inactive.
+ */
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    return (
+      <div className={styles.tooltip}>
+        <p className="label">{`${data.time} min`}</p>
+      </div>
+    );
+  }
+  return null;
+};
+
+/**
+ * A component that displays a line chart representing the average session duration for a user.
+ * @module Session
+ * @param {Object} props - The component props.
+ * @param {Object} props.data - An object containing user session data.
+ * @param {number} props.data.userId - The user ID.
+ * @param {Object[]} props.data.sessions - An array of objects representing user sessions.
+ * @returns {JSX.Element} - The JSX markup for the Session component.
+ */
 function Session({ data }) {
   const [sessionData, setSessionData] = useState([]);
   useEffect(() => {
@@ -13,18 +42,6 @@ function Session({ data }) {
     }
     formateData();
   }, [data]);
-
-  const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-      return (
-        <div className={styles.tooltip}>
-          <p className="label">{`${data.time} min`}</p>
-        </div>
-      );
-    }
-    return null;
-  };
 
   return (
     <div className={styles.container}>

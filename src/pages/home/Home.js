@@ -8,7 +8,11 @@ import Score from "components/score/Score";
 import Nutrient from "components/nutrient/Nutrient";
 import { getUser, getActivity, getSession, getPerformance } from "api/Api";
 import { useParams } from "react-router-dom";
-//import { getUser, getActivity, getSession, getPerformance } from "mock/mock";
+
+/**
+ * A React component that displays a user's home page and their daily statistics.
+ * @component
+ */
 
 function Home() {
   const [user, setUser] = useState({});
@@ -17,6 +21,13 @@ function Home() {
   const [performance, setPerformance] = useState({});
   const [score, setScore] = useState(null);
   const { id } = useParams();
+
+  /**
+   * Retrieves user, activity, session, performance data and sets state variables for these data when the component mounts.
+   * @function
+   * @async
+   * @returns {void}
+   */
 
   useEffect(() => {
     async function data() {
@@ -38,6 +49,13 @@ function Home() {
 
     data();
   }, [id]);
+
+  /**
+   * Renders a div with an error message if user, userInfos, activity.sessions, session.sessions, or performance.kind is falsy.
+   * @function
+   * @returns {JSX.Element}
+   */
+
   if (
     !user ||
     !user.userInfos ||
@@ -47,6 +65,12 @@ function Home() {
   ) {
     return <div>Erreur</div>;
   }
+
+  /**
+   * Renders the component's UI
+   * @function
+   * @returns {JSX.Element}
+   */
   return (
     <div className={styles.container}>
       <Nav />

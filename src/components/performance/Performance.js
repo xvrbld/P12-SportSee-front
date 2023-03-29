@@ -10,6 +10,17 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+/**
+ * A component that displays the performance of a user as a radar chart.
+ * @module Performance
+ * @param {Object} props - The props object.
+ * @param {Object} props.data - An object that contains the performance data of a user.
+ * @param {number} props.data.userId - The ID of the user.
+ * @param {Array} props.data.data - An array of performance data for the user.
+ * @param {Object} props.data.kind - The type of performance data.
+ * @returns {JSX.Element} - The rendered Performance component.
+ */
+
 function Performance({ data }) {
   const [performanceData, setPerformanceData] = useState([]);
   useEffect(() => {

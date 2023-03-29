@@ -13,9 +13,39 @@ import {
   Tooltip,
 } from "recharts";
 
+/**
+ * Custom tooltip component for activity bar chart
+ * @module CustomTooltip
+ * @param {Object} props - Component props
+ * @param {boolean} props.active - Whether tooltip is active
+ * @param {Array} props.payload - Array of tooltip data
+ * @returns {null|JSX.Element} - React component or null
+ */
+
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className={styles.tooltip}>
+        <p>{`${payload[0].value}kg`}</p>
+        <p>{`${payload[1].value}kCal`}</p>
+      </div>
+    );
+  }
+  return null;
+};
+
+/**
+ * React component that displays a bar chart of daily activity data
+ * @module Activity
+ * @param {Object} props - Component props
+ * @param {Object} props.data - User's activity data
+ * @param {number} props.data.userId - User ID
+ * @param {Array} props.data.sessions - Array of daily activity sessions
+ * @returns {JSX.Element} - React component
+ */
 function Activity({ data }) {
-  
   const [activityData, setActivityData] = useState([]);
+
   useEffect(() => {
     async function formatData() {
       const formattedActivity = await formatActivity(data);
@@ -23,18 +53,6 @@ function Activity({ data }) {
     }
     formatData();
   }, [data]);
-
-  const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className={styles.tooltip}>
-          <p>{`${payload[0].value}kg`}</p>
-          <p>{`${payload[1].value}kCal`}</p>
-        </div>
-      );
-    }
-    return null;
-  };
 
   return (
     <div className={styles.container}>

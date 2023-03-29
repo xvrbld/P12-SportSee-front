@@ -7,6 +7,14 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+/**
+ * A component that displays a score as a radial chart.
+ * @module Score
+ * @param {object} props - The props object.
+ * @param {number} props.score - The score to display.
+ * @returns {JSX.Element} - The Score component JSX.Element.
+ */
+
 function Score({ score }) {
   const data = [
     {

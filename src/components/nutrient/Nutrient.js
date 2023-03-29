@@ -6,6 +6,17 @@ import IconProtein from "components/icons/Protein";
 import IconCarb from "components/icons/Carb";
 import IconLipide from "components/icons/Lipide";
 
+/**
+ * A nutrient component displaying an icon, value, and label.
+ * @module Nutrient
+ * @param {Object} props - The props object.
+ * @param {("IconCalorie"|"IconProtein"|"IconCarb"|"IconLipide")} props.icon - The icon to display.
+ * @param {string} props.value - The value to display.
+ * @param {string} props.label - The label to display.
+ * @param {string} props.color - The color of the icon.
+ * @returns {JSX.Element} - The rendered Nutrient component.
+ */
+
 function Nutrient({ icon, value, label, color }) {
   return (
     <div className={styles.nutrient}>
