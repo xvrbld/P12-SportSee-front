@@ -6,8 +6,9 @@ import Session from "components/session/Session";
 import Performance from "components/performance/Performance";
 import Score from "components/score/Score";
 import Nutrient from "components/nutrient/Nutrient";
-import { getUser, getActivity, getSession, getPerformance } from "api/Api";
 import { useParams } from "react-router-dom";
+import { getUser, getActivity, getSession, getPerformance } from "api/Api"; // To use api data
+//import { getUser, getActivity, getSession, getPerformance } from "mock/mock"; // To use mock data
 
 /**
  * A React component that displays a user's home page and their daily statistics.
