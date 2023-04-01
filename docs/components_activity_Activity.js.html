@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/activity/Activity.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/activity/Activity.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import styles from "./Activity.module.scss";
+import { formatActivity } from "formatters/formatActivity";
+import {
+  BarChart,
+  Bar,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  ResponsiveContainer,
+  Legend,
+  Tooltip,
+} from "recharts";
+
+/**
+ * Custom tooltip component for activity bar chart
+ * @module CustomTooltip
+ * @param {Object} props - Component props
+ * @param {boolean} props.active - Whether tooltip is active
+ * @param {Array} props.payload - Array of tooltip data
+ * @returns {null|JSX.Element} - React component or null
+ */
+
+const CustomTooltip = ({ active, payload }) => {
+  if (active &amp;&amp; payload &amp;&amp; payload.length) {
+    return (
+      &lt;div className={styles.tooltip}>
+        &lt;p>{`${payload[0].value}kg`}&lt;/p>
+        &lt;p>{`${payload[1].value}kCal`}&lt;/p>
+      &lt;/div>
+    );
+  }
+  return null;
+};
+
+/**
+ * React component that displays a bar chart of daily activity data
+ * @module Activity
+ * @param {Object} props - Component props
+ * @param {Object} props.data - User's activity data
+ * @param {number} props.data.userId - User ID
+ * @param {Array} props.data.sessions - Array of daily activity sessions
+ * @returns {JSX.Element} - React component
+ */
+function Activity({ data }) {
+  const [activityData, setActivityData] = useState([]);
+
+  useEffect(() => {
+    async function formatData() {
+      const formattedActivity = await formatActivity(data);
+      setActivityData(formattedActivity);
+    }
+    formatData();
+  }, [data]);
+
+  return (
+    &lt;div className={styles.container}>
+      &lt;ResponsiveContainer width="100%" height={280}>
+        &lt;BarChart data={activityData}>
+          &lt;CartesianGrid
+            vertical={false}
+            strokeDasharray="4 4"
+            stroke="#9B9EAC"
+          />
+          &lt;XAxis
+            dataKey="name"
+            axisLine={true}
+            tickLine={false}
+            stroke="#9B9EAC"
+            dy={10}
+          />
+          &lt;YAxis
+            axisLine={false}
+            tickLine={false}
+            yAxisId="left"
+            orientation="right"
+            tickCount={3}
+            domain={["dataMin -2", "dataMax +1"]}
+          />
+          &lt;YAxis hide yAxisId="right" />
+          &lt;Tooltip
+            wrapperStyle={{ outline: "none" }}
+            cursor={{ fill: "gray", opacity: 0.3 }}
+            content={&lt;CustomTooltip />}
+            offset={30}
+            allowEscapeViewBox={{ x: true }}
+            position={{ y: 0 }}
+          />
+
+          &lt;text x={30} y={30} className={styles.container__title}>
+            Activité quotidienne
+          &lt;/text>
+
+          &lt;Legend
+            align="right"
+            verticalAlign="top"
+            height={80}
+            iconSize={14}
+            iconType="circle"
+            wrapperStyle={{ right: 30, top: 12 }}
+          />
+          &lt;Bar
+            dataKey="weight"
+            barSize={8}
+            radius={[10, 10, 0, 0]}
+            yAxisId="left"
+            className={styles.container__barKilo}
+            name="Poids (kg)"
+            fill="#282D30"
+          />
+          &lt;Bar
+            dataKey="calorie"
+            barSize={8}
+            radius={[10, 10, 0, 0]}
+            yAxisId="right"
+            className={styles.barCalories}
+            name={
+              &lt;span style={{ color: "black" }}>Calories brûlées (kCal)&lt;/span>
+            }
+            fill="#E60000"
+          />
+        &lt;/BarChart>
+      &lt;/ResponsiveContainer>
+    &lt;/div>
+  );
+}
+
+Activity.propTypes = {
+  data: PropTypes.shape({
+    userId: PropTypes.number.isRequired,
+    sessions: PropTypes.array.isRequired,
+  }).isRequired,
+};
+
+export default Activity;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Activity.html">Activity</a></li><li><a href="module-CustomTooltip.html">CustomTooltip</a></li><li><a href="module-Nutrient.html">Nutrient</a></li><li><a href="module-Performance.html">Performance</a></li><li><a href="module-Score.html">Score</a></li><li><a href="module-Session.html">Session</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#formatActivity">formatActivity</a></li><li><a href="global.html#formatPerformance">formatPerformance</a></li><li><a href="global.html#formatSession">formatSession</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Apr 01 2023 09:07:26 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

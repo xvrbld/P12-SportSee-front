@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/home/Home.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/home/Home.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { React, useState, useEffect } from "react";
+import styles from "./Home.module.scss";
+import Nav from "components/nav/Nav";
+import Activity from "components/activity/Activity";
+import Session from "components/session/Session";
+import Performance from "components/performance/Performance";
+import Score from "components/score/Score";
+import Nutrient from "components/nutrient/Nutrient";
+import { getUser, getActivity, getSession, getPerformance } from "api/Api";
+import { useParams } from "react-router-dom";
+
+/**
+ * A React component that displays a user's home page and their daily statistics.
+ * @component
+ */
+
+function Home() {
+  const [user, setUser] = useState({});
+  const [activity, setActivity] = useState({});
+  const [session, setSession] = useState({});
+  const [performance, setPerformance] = useState({});
+  const [score, setScore] = useState(null);
+  const { id } = useParams();
+
+  /**
+   * Retrieves user, activity, session, performance data and sets state variables for these data when the component mounts.
+   * @function
+   * @async
+   * @returns {void}
+   */
+
+  useEffect(() => {
+    async function data() {
+      const userInfo = await getUser(id);
+      setUser(userInfo);
+
+      const userActivity = await getActivity(id);
+      setActivity(userActivity);
+
+      const userSession = await getSession(id);
+      setSession(userSession);
+
+      const userPerformance = await getPerformance(id);
+      setPerformance(userPerformance);
+
+      const userScore = userInfo.todayScore;
+      setScore(userScore ? userScore : userInfo.score);
+    }
+
+    data();
+  }, [id]);
+
+  /**
+   * Renders a div with an error message if user, userInfos, activity.sessions, session.sessions, or performance.kind is falsy.
+   * @function
+   * @returns {JSX.Element}
+   */
+
+  if (
+    !user ||
+    !user.userInfos ||
+    !activity.sessions ||
+    !session.sessions ||
+    !performance.kind
+  ) {
+    return &lt;div>Erreur&lt;/div>;
+  }
+
+  /**
+   * Renders the component's UI
+   * @function
+   * @returns {JSX.Element}
+   */
+  return (
+    &lt;div className={styles.container}>
+      &lt;Nav />
+      &lt;div className={styles.main}>
+        &lt;h1 className={styles.userName}>
+          &lt;span className={styles.firstName}>Bonjour&lt;/span>{" "}
+          &lt;span className={styles.lastName}>{user.userInfos.firstName}&lt;/span>
+        &lt;/h1>
+        &lt;p className={styles.greet}>
+          Félicitation ! Vous avez explosé vos objectifs hier 👏
+        &lt;/p>
+        &lt;div className={styles.stats}>
+          &lt;div className={styles.graphics}>
+            &lt;div className={styles.weight}>
+              &lt;Activity data={activity} />
+            &lt;/div>
+            &lt;div className={styles.thumbs}>
+              &lt;Session data={session} />
+              &lt;Performance data={performance} />
+              &lt;Score score={score} />
+            &lt;/div>
+          &lt;/div>
+          &lt;div className={styles.nutrients}>
+            &lt;Nutrient
+              color="rgba(255, 0, 0, 0.07)"
+              icon="IconCalorie"
+              value={`${user.keyData.calorieCount}kCal`}
+              label="Calories"
+            />
+            &lt;Nutrient
+              color="rgba(74, 184, 255, 0.1)"
+              icon="IconProtein"
+              value={`${user.keyData.proteinCount}g`}
+              label="Proteines"
+            />
+            &lt;Nutrient
+              color="rgba(249, 206, 35, 0.1)"
+              icon="IconCarb"
+              value={`${user.keyData.carbohydrateCount}g`}
+              label="Glucides"
+            />
+            &lt;Nutrient
+              color="rgba(253, 81, 129, 0.1)"
+              icon="IconLipide"
+              value={`${user.keyData.lipidCount}g`}
+              label="Lipides"
+            />
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+  );
+}
+
+export default Home;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Activity.html">Activity</a></li><li><a href="module-CustomTooltip.html">CustomTooltip</a></li><li><a href="module-Nutrient.html">Nutrient</a></li><li><a href="module-Performance.html">Performance</a></li><li><a href="module-Score.html">Score</a></li><li><a href="module-Session.html">Session</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#formatActivity">formatActivity</a></li><li><a href="global.html#formatPerformance">formatPerformance</a></li><li><a href="global.html#formatSession">formatSession</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Apr 01 2023 09:07:26 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

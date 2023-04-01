@@ -43,7 +43,6 @@ function Score({ score }) {
             cornerRadius={5}
             max={100}
             dataKey="score"
-            className={styles.container__bar}
           />
 
           <text
@@ -52,7 +51,6 @@ function Score({ score }) {
             fontWeight="bold"
             textAnchor="middle"
             dominantBaseline="middle"
-            className="progress-label"
           >
             Score
           </text>
@@ -62,7 +60,6 @@ function Score({ score }) {
             fontWeight="bold"
             textAnchor="middle"
             dominantBaseline="middle"
-            className="score-label"
             fontSize={28}
           >
             {`${score * 100}%`}
@@ -72,7 +69,6 @@ function Score({ score }) {
             y={130}
             textAnchor="middle"
             dominantBaseline="middle"
-            className="score-label"
           >
             de votre
           </text>
@@ -81,7 +77,6 @@ function Score({ score }) {
             y={150}
             textAnchor="middle"
             dominantBaseline="middle"
-            className="score-label"
           >
             objectif
           </text>

@@ -1,18 +1,30 @@
-# Getting Started with Create React App
+# Project 12 - Front-end Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repo contains all the source code to run the micro API for the sports analytics dashboard SportSee.
 
-## Available Scripts
+### 1 Prerequisites
 
-In the project directory, you can run:
+- [NodeJS (**version 12.18**)](https://nodejs.org/en/)
+- [Npm](https://www.npmjs.com/)
 
-### `npm start`
+If you are working with several versions of NodeJS, we recommend you install [nvm](https://github.com/nvm-sh/nvm). This tool will allow you to easily manage your NodeJS versions.
 
-Runs the app in the development mode.\
+### 1 Launching the project
+
+- Fork the repository
+- Clone it on your computer.
+- The `npm install` command will allow you to install the dependencies.
+- The `npm start` command in the `back` folder will allow you to run the API.
+- The `npm start` command in the `front` folder will allow you to run the app in the development mode.
+
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+## Available Scripts
+
+In the project directory, you can run:
 
 ### `npm test`
 
@@ -44,27 +56,3 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/session/Session.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/session/Session.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import styles from "./Session.module.scss";
+import { formatSession } from "formatters/formatSession";
+import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from "recharts";
+
+/**
+ * A custom tooltip component for the LineChart.
+ * @module CustomTooltip
+ * @param {Object} props - The component props.
+ * @param {boolean} props.active - Whether the tooltip is active.
+ * @param {Object[]} props.payload - An array of tooltip payload objects.
+ * @returns {JSX.Element|null} - The JSX markup for the tooltip component or null if inactive.
+ */
+const CustomTooltip = ({ active, payload }) => {
+  if (active &amp;&amp; payload &amp;&amp; payload.length) {
+    const data = payload[0].payload;
+    return (
+      &lt;div className={styles.tooltip}>
+        &lt;p className="label">{`${data.time} min`}&lt;/p>
+      &lt;/div>
+    );
+  }
+  return null;
+};
+
+/**
+ * A component that displays a line chart representing the average session duration for a user.
+ * @module Session
+ * @param {Object} props - The component props.
+ * @param {Object} props.data - An object containing user session data.
+ * @param {number} props.data.userId - The user ID.
+ * @param {Object[]} props.data.sessions - An array of objects representing user sessions.
+ * @returns {JSX.Element} - The JSX markup for the Session component.
+ */
+function Session({ data }) {
+  const [sessionData, setSessionData] = useState([]);
+  useEffect(() => {
+    async function formateData() {
+      const formattedSession = await formatSession(data);
+      setSessionData(formattedSession);
+    }
+    formateData();
+  }, [data]);
+
+  return (
+    &lt;div className={styles.container}>
+      &lt;ResponsiveContainer width="100%" height="100%">
+        &lt;LineChart
+          width={500}
+          height={300}
+          data={sessionData}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          &lt;XAxis
+            axisLine={false}
+            tickLine={false}
+            dataKey="name"
+            stroke="#FFFFFF"
+          />
+          &lt;Tooltip content={&lt;CustomTooltip />} />
+          &lt;Line
+            type="monotone"
+            dataKey="time"
+            strokeWidth={2}
+            stroke="#FFFFFF"
+            activeDot={{ r: 6 }}
+            dot={false}
+          />
+          &lt;Line
+            type="monotone"
+            dataKey="time"
+            strokeWidth={2}
+            stroke="#FFFFFF"
+            activeDot={{ r: 6 }}
+            dot={false}
+          />
+          &lt;text
+            x={100}
+            y={30}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            className="progress-label"
+            fill="rgba(255, 255, 255, 0.5)"
+          >
+            Durée moyenne des
+          &lt;/text>
+          &lt;text
+            x={60}
+            y={50}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            className="progress-label"
+            fill="rgba(255, 255, 255, 0.5)"
+          >
+            sessions
+          &lt;/text>
+        &lt;/LineChart>
+      &lt;/ResponsiveContainer>
+    &lt;/div>
+  );
+}
+
+Session.propTypes = {
+  data: PropTypes.shape({
+    userId: PropTypes.number.isRequired,
+    sessions: PropTypes.array.isRequired,
+  }).isRequired,
+};
+
+export default Session;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Activity.html">Activity</a></li><li><a href="module-CustomTooltip.html">CustomTooltip</a></li><li><a href="module-Nutrient.html">Nutrient</a></li><li><a href="module-Performance.html">Performance</a></li><li><a href="module-Score.html">Score</a></li><li><a href="module-Session.html">Session</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Home">Home</a></li><li><a href="global.html#formatActivity">formatActivity</a></li><li><a href="global.html#formatPerformance">formatPerformance</a></li><li><a href="global.html#formatSession">formatSession</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Apr 01 2023 09:07:26 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
