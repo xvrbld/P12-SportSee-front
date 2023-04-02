@@ -1,15 +1,18 @@
 # Project 12 - Front-end Dashboard
 
-This repo contains all the source code to run the micro API for the sports analytics dashboard SportSee.
+This repo contains all the source code to run the sports analytics dashboard SportSee.
 
-### 1 Prerequisites
+### Prerequisites
 
 - [NodeJS (**version 12.18**)](https://nodejs.org/en/)
+- [Axios (**version 1.3.4**)](https://axios-http.com/)
+- [Recharts (**version 2.1.16**)](https://recharts.org/en-US/)
+- [Sass (**version 1.58.3**)](https://sass-lang.com/)
 - [Npm](https://www.npmjs.com/)
 
 If you are working with several versions of NodeJS, we recommend you install [nvm](https://github.com/nvm-sh/nvm). This tool will allow you to easily manage your NodeJS versions.
 
-### 1 Launching the project
+### Launching the project
 
 - Fork the repository
 - Clone it on your computer.
@@ -19,8 +22,11 @@ If you are working with several versions of NodeJS, we recommend you install [nv
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
+Make sure to set up a different port for the API such as [http://localhost:3001](http://localhost:3001) for example.
+
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+Any change in the `back` folder requires a manual reload.
 
 ## Available Scripts
 
