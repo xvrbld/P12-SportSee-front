@@ -64,7 +64,7 @@ function Home() {
     !session.sessions ||
     !performance.kind
   ) {
-    return <div>Erreur</div>;
+    return <div className={styles.errorUser}>Utilisateur Inconnu</div>;
   }
 
   /**
