@@ -22,8 +22,6 @@ If you are working with several versions of NodeJS, we recommend you install [nv
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-Make sure to set up a different port for the API such as [http://localhost:3001](http://localhost:3001) for example.
-
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 Any change in the `back` folder requires a manual reload.
